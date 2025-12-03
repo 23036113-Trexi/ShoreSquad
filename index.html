@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Rally your crew, track weather, and hit the next beach cleanup with ShoreSquad - the dope map app for eco-warriors!">
+    <meta name="theme-color" content="#0099CC">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>ShoreSquad - Rally Your Crew for Beach Cleanups</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%230099CC'>🌊</text></svg>">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><text y='1.2em' font-size='160' fill='%230099CC'>🌊</text></svg>">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header class="header" role="banner">
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <span class="brand-icon">🌊</span>
+                    <h1 class="brand-name">ShoreSquad</h1>
+                </div>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu"
+                    aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks" role="menubar">
+                    <li role="none"><a href="#map" role="menuitem" class="nav-link">Find Cleanups</a></li>
+                    <li role="none"><a href="#weather" role="menuitem" class="nav-link">Weather</a></li>
+                    <li role="none"><a href="#crew" role="menuitem" class="nav-link">Your Crew</a></li>
+                    <li role="none"><a href="#about" role="menuitem" class="nav-link">About</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <h2>Rally Your Crew</h2>
+                <p>Track weather, find beach cleanups near you, and make eco-action fun and social.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="startBtn" aria-label="Start discovering cleanups">Get
+                        Started</button>
+                    <button class="btn btn-secondary" id="learnMore" aria-label="Learn more about ShoreSquad">Learn
+                        More</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="wave wave1"></div>
+                <div class="wave wave2"></div>
+                <div class="wave wave3"></div>
+            </div>
+        </section>
+
+        <!-- Interactive Map Section -->
+        <section class="map-section" id="map">
+            <div class="section-header">
+                <h2>Find Your Next Cleanup</h2>
+                <p>See what's happening at beaches near you</p>
+            </div>
+            <div class="map-container" id="mapContainer" role="application"
+                aria-label="Interactive map showing nearby beach cleanups">
+                <div class="map-placeholder">
+                    <span class="icon">📍</span>
+                    <p>Map will load here</p>
+                    <p class="text-muted">Enable location or search by city</p>
+                </div>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="locationSearch" placeholder="Search by city or beach name..."
+                    class="search-input" aria-label="Search location for beach cleanups">
+                <button class="btn btn-icon" id="geolocateBtn" aria-label="Use current location">
+                    📍
+                </button>
+            </div>
+        </section>
+
+        <!-- Weather Section -->
+        <section class="weather-section" id="weather">
+            <div class="section-header">
+                <h2>Check the Forecast</h2>
+                <p>Plan your cleanup with real-time weather data</p>
+            </div>
+            <div class="weather-container" id="weatherContainer">
+                <div class="weather-card weather-placeholder">
+                    <span class="icon">⛅</span>
+                    <p>Weather loading...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crew Section -->
+        <section class="crew-section" id="crew">
+            <div class="section-header">
+                <h2>Build Your Crew</h2>
+                <p>Connect with eco-warriors in your area</p>
+            </div>
+            <div class="crew-container" id="crewContainer">
+                <div class="crew-card">
+                    <div class="avatar">👤</div>
+                    <h3>Join or Create a Crew</h3>
+                    <p>Team up with friends and make a real impact together</p>
+                    <button class="btn btn-secondary">Find Crews</button>
+                </div>
+            </div>
+            <div class="stats-section">
+                <div class="stat-item">
+                    <div class="stat-number" id="statVolunteers">0</div>
+                    <p class="stat-label">Volunteers</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="statCleanups">0</div>
+                    <p class="stat-label">Cleanups</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="statWasteRemoved">0</div>
+                    <p class="stat-label">Lbs Removed</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="section-header">
+                <h2>About ShoreSquad</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Our Mission</h3>
+                    <p>Mobilize young people to protect our oceans through community-driven beach cleanups with
+                        technology that makes eco-action fun and social.</p>
+                </div>
+                <div class="about-card">
+                    <span class="feature-icon">🌍</span>
+                    <h3>The Impact</h3>
+                    <p>Every cleanup removes tons of plastic from our beaches. Together, we're creating real change for
+                        our planet.</p>
+                </div>
+                <div class="about-card">
+                    <span class="feature-icon">🤝</span>
+                    <h3>Join the Movement</h3>
+                    <p>From beginners to experienced eco-warriors, there's a crew for everyone. Let's make a difference
+                        together.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Ready to Make a Difference?</h2>
+            <p>Join thousands of volunteers cleaning up our beaches</p>
+            <button class="btn btn-primary btn-large" id="ctaBtn">Join ShoreSquad Now</button>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ShoreSquad</h4>
+                <p>Rally your crew, track weather, and hit the next beach cleanup.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#map">Find Cleanups</a></li>
+                    <li><a href="#crew">Our Crew</a></li>
+                    <li><a href="#about">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" aria-label="ShoreSquad on Instagram">📱</a>
+                    <a href="#" aria-label="ShoreSquad on Twitter">🐦</a>
+                    <a href="#" aria-label="ShoreSquad on TikTok">🎵</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShoreSquad. Making beaches cleaner, one crew at a time. 🌊</p>
+        </div>
+    </footer>
+
+    <!-- PWA Support Scripts -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
+        }
+    </script>
+
+    <script src="js/app.js" defer></script>
+</body>
+
+</html>
