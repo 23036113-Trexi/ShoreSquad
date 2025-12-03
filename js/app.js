@@ -88,6 +88,7 @@ class ShoreSquadApp {
         this.generateMockEvents();
         this.displayWeather();
         this.displayNextCleanup();
+        this.initLeafletMap();
     }
 
     /**
@@ -99,6 +100,65 @@ class ShoreSquadApp {
             // Overlay already contains the marker from HTML
             // This method could be used to update it dynamically
             console.log(`Next Cleanup: ${this.nextCleanup.name} at ${this.nextCleanup.latitude}, ${this.nextCleanup.longitude}`);
+        }
+    }
+
+    /**
+     * Initialize Leaflet Map
+     */
+    initLeafletMap() {
+        const mapContainer = document.getElementById('leafletMap');
+        if (!mapContainer || !window.L) {
+            console.warn('Leaflet not loaded or map container not found');
+            return;
+        }
+
+        try {
+            // Create map centered on Pasir Ris Beach
+            const map = L.map('leafletMap').setView(
+                [this.nextCleanup.latitude, this.nextCleanup.longitude],
+                15
+            );
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19,
+                className: 'leaflet-tile'
+            }).addTo(map);
+
+            // Add marker for the cleanup location
+            const marker = L.marker(
+                [this.nextCleanup.latitude, this.nextCleanup.longitude],
+                {
+                    icon: L.icon({
+                        iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxOCIgZmlsbD0iIzAwOTlDQyIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmb250LXNpemU9IjIyIiBmaWxsPSJ3aGl0ZSI+IPCfk4vc3ZnPg==',
+                        iconSize: [40, 40],
+                        iconAnchor: [20, 40],
+                        popupAnchor: [0, -40]
+                    })
+                }
+            ).addTo(map);
+
+            // Add popup
+            marker.bindPopup(`
+                <div style="text-align: center;">
+                    <strong>${this.nextCleanup.name}</strong><br>
+                    ${this.nextCleanup.latitude.toFixed(4)}°N, ${this.nextCleanup.longitude.toFixed(4)}°E<br>
+                    <small>${this.nextCleanup.location}</small>
+                </div>
+            `, { maxWidth: 250 });
+
+            // Open popup by default
+            marker.openPopup();
+
+            // Store map reference for later use
+            this.leafletMap = map;
+            this.leafletMarker = marker;
+
+            console.log('Leaflet map initialized successfully');
+        } catch (error) {
+            console.error('Error initializing Leaflet map:', error);
         }
     }
 
