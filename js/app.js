@@ -194,7 +194,7 @@ class ShoreSquadApp {
         try {
             // Using Open-Meteo API (free, accurate, no API key needed)
             const response = await fetch(
-                'https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&timezone=auto'
+                'https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&temperature_unit=celsius&timezone=auto'
             );
             const data = await response.json();
 
@@ -213,7 +213,7 @@ class ShoreSquadApp {
 
         try {
             const response = await fetch(
-                `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&timezone=auto`
+                `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&temperature_unit=celsius&timezone=auto`
             );
             const data = await response.json();
 
@@ -233,9 +233,9 @@ class ShoreSquadApp {
             <div class="weather-card">
                 <span class="icon">${weatherIcon}</span>
                 <h3>${locationName}</h3>
-                <p style="font-size: 32px; margin: 10px 0;">${Math.round(weatherData.temperature_2m)}°F</p>
+                <p style="font-size: 32px; margin: 10px 0;">${Math.round(weatherData.temperature_2m)}°C</p>
                 <p>Humidity: ${weatherData.relative_humidity_2m}%</p>
-                <p>Wind: ${Math.round(weatherData.wind_speed_10m)} mph</p>
+                <p>Wind: ${Math.round(weatherData.wind_speed_10m)} km/h</p>
                 <p style="margin: 0; font-size: 12px; color: #666;">Perfect for beach cleanup! 🌊</p>
             </div>
         `;
