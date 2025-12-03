@@ -17,7 +17,7 @@ const ASSETS_TO_CACHE = [
  */
 self.addEventListener('install', (event) => {
     console.log('Service Worker installing...');
-    
+
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
@@ -34,7 +34,7 @@ self.addEventListener('install', (event) => {
  */
 self.addEventListener('activate', (event) => {
     console.log('Service Worker activating...');
-    
+
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
@@ -63,7 +63,7 @@ self.addEventListener('fetch', (event) => {
     }
 
     // API calls - network first
-    if (url.pathname.includes('/api/') || 
+    if (url.pathname.includes('/api/') ||
         url.hostname !== self.location.hostname) {
         event.respondWith(networkFirst(request));
         return;
@@ -84,7 +84,7 @@ async function cacheFirst(request) {
         }
 
         const response = await fetch(request);
-        
+
         if (!response || response.status !== 200 || response.type === 'error') {
             return response;
         }
@@ -93,7 +93,7 @@ async function cacheFirst(request) {
         const responseToCache = response.clone();
         const cache = await caches.open(CACHE_NAME);
         cache.put(request, responseToCache);
-        
+
         return response;
     } catch (error) {
         console.error('Fetch error:', error);
@@ -115,17 +115,17 @@ async function cacheFirst(request) {
 async function networkFirst(request) {
     try {
         const response = await fetch(request);
-        
+
         if (response && response.status === 200) {
             // Cache successful responses
             const cache = await caches.open(CACHE_NAME);
             cache.put(request, response.clone());
         }
-        
+
         return response;
     } catch (error) {
         console.error('Network request failed:', error);
-        
+
         // Return cached response if available
         const cached = await caches.match(request);
         if (cached) {
@@ -148,7 +148,7 @@ async function networkFirst(request) {
  */
 self.addEventListener('sync', (event) => {
     console.log('Background sync event:', event.tag);
-    
+
     if (event.tag === 'sync-cleanups') {
         event.waitUntil(syncCleanups());
     }
@@ -161,7 +161,7 @@ async function syncCleanups() {
     try {
         const db = await openDatabase();
         const pendingCleanups = await getAllFromStore(db, 'pending-cleanups');
-        
+
         for (const cleanup of pendingCleanups) {
             await fetch('/api/cleanups', {
                 method: 'POST',
@@ -169,7 +169,7 @@ async function syncCleanups() {
                 headers: { 'Content-Type': 'application/json' }
             });
         }
-        
+
         await clearStore(db, 'pending-cleanups');
         console.log('Cleanups synced successfully');
     } catch (error) {

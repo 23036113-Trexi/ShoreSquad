@@ -1,88 +1,88 @@
 {
-  "name": "ShoreSquad - Beach Cleanup Community",
-  "short_name": "ShoreSquad",
-  "description": "Rally your crew, track weather, and hit the next beach cleanup with our dope map app!",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0099CC",
-  "orientation": "portrait-primary",
-  "scope": "./",
-  "icons": [
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><text y='2.2em' font-size='180' fill='%230099CC'>🌊</text></svg>",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><text y='5.8em' font-size='480' fill='%230099CC'>🌊</text></svg>",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%230099CC'/><text y='2.2em' font-size='180' fill='white'>🌊</text></svg>",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "maskable"
-    }
-  ],
-  "categories": [
-    "social",
-    "productivity",
-    "lifestyle"
-  ],
-  "screenshots": [
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%230099CC' width='540' height='720'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-size='120' fill='white'>🌊</text></svg>",
-      "sizes": "540x720",
-      "type": "image/svg+xml",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'><rect fill='%230099CC' width='1280' height='720'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-size='200' fill='white'>🌊</text></svg>",
-      "sizes": "1280x720",
-      "type": "image/svg+xml",
-      "form_factor": "wide"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Find Cleanups",
-      "short_name": "Cleanups",
-      "description": "Discover beach cleanups near you",
-      "url": "./index.html#map",
-      "icons": [
+    "name": "ShoreSquad - Beach Cleanup Community",
+    "short_name": "ShoreSquad",
+    "description": "Rally your crew, track weather, and hit the next beach cleanup with our dope map app!",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#0099CC",
+    "orientation": "portrait-primary",
+    "scope": "./",
+    "icons": [
         {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='1.1em' font-size='90' fill='%230099CC'>📍</text></svg>",
-          "sizes": "96x96",
-          "type": "image/svg+xml"
-        }
-      ]
-    },
-    {
-      "name": "Your Crew",
-      "short_name": "Crew",
-      "description": "Connect with your cleanup crew",
-      "url": "./index.html#crew",
-      "icons": [
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><text y='2.2em' font-size='180' fill='%230099CC'>🌊</text></svg>",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
         {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='1.1em' font-size='90' fill='%230099CC'>👥</text></svg>",
-          "sizes": "96x96",
-          "type": "image/svg+xml"
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><text y='5.8em' font-size='480' fill='%230099CC'>🌊</text></svg>",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%230099CC'/><text y='2.2em' font-size='180' fill='white'>🌊</text></svg>",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "maskable"
         }
-      ]
+    ],
+    "categories": [
+        "social",
+        "productivity",
+        "lifestyle"
+    ],
+    "screenshots": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%230099CC' width='540' height='720'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-size='120' fill='white'>🌊</text></svg>",
+            "sizes": "540x720",
+            "type": "image/svg+xml",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'><rect fill='%230099CC' width='1280' height='720'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-size='200' fill='white'>🌊</text></svg>",
+            "sizes": "1280x720",
+            "type": "image/svg+xml",
+            "form_factor": "wide"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Find Cleanups",
+            "short_name": "Cleanups",
+            "description": "Discover beach cleanups near you",
+            "url": "./index.html#map",
+            "icons": [
+                {
+                    "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='1.1em' font-size='90' fill='%230099CC'>📍</text></svg>",
+                    "sizes": "96x96",
+                    "type": "image/svg+xml"
+                }
+            ]
+        },
+        {
+            "name": "Your Crew",
+            "short_name": "Crew",
+            "description": "Connect with your cleanup crew",
+            "url": "./index.html#crew",
+            "icons": [
+                {
+                    "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='1.1em' font-size='90' fill='%230099CC'>👥</text></svg>",
+                    "sizes": "96x96",
+                    "type": "image/svg+xml"
+                }
+            ]
+        }
+    ],
+    "share_target": {
+        "action": "/share",
+        "method": "POST",
+        "enctype": "multipart/form-data",
+        "params": {
+            "title": "title",
+            "text": "text",
+            "url": "url"
+        }
     }
-  ],
-  "share_target": {
-    "action": "/share",
-    "method": "POST",
-    "enctype": "multipart/form-data",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  }
 }

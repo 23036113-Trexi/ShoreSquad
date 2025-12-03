@@ -1,45 +1,45 @@
 {
-  "name": "shoresquad",
-  "version": "1.0.0",
-  "description": "Rally your crew, track weather, and hit the next beach cleanup with our dope map app!",
-  "main": "index.html",
-  "type": "module",
-  "scripts": {
-    "start": "live-server --port=8080 --browser=chrome",
-    "dev": "live-server --port=8080",
-    "build": "echo 'Build script not yet configured'",
-    "test": "echo 'Tests not yet configured'",
-    "format": "prettier --write \"**/*.{html,css,js,json,md}\""
-  },
-  "keywords": [
-    "beach-cleanup",
-    "environmental",
-    "community",
-    "weather",
-    "maps",
-    "social",
-    "pwa"
-  ],
-  "author": "ShoreSquad Team",
-  "license": "MIT",
-  "devDependencies": {
-    "live-server": "^1.2.2",
-    "prettier": "^3.0.0"
-  },
-  "dependencies": {},
-  "optionalDependencies": {
-    "leaflet": "^1.9.4",
-    "leaflet-routing-machine": "^3.2.12"
-  },
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/shoresquad.git"
-  },
-  "bugs": {
-    "url": "https://github.com/yourusername/shoresquad/issues"
-  }
+    "name": "shoresquad",
+    "version": "1.0.0",
+    "description": "Rally your crew, track weather, and hit the next beach cleanup with our dope map app!",
+    "main": "index.html",
+    "type": "module",
+    "scripts": {
+        "start": "live-server --port=8080 --browser=chrome",
+        "dev": "live-server --port=8080",
+        "build": "echo 'Build script not yet configured'",
+        "test": "echo 'Tests not yet configured'",
+        "format": "prettier --write \"**/*.{html,css,js,json,md}\""
+    },
+    "keywords": [
+        "beach-cleanup",
+        "environmental",
+        "community",
+        "weather",
+        "maps",
+        "social",
+        "pwa"
+    ],
+    "author": "ShoreSquad Team",
+    "license": "MIT",
+    "devDependencies": {
+        "live-server": "^1.2.2",
+        "prettier": "^3.0.0"
+    },
+    "dependencies": {},
+    "optionalDependencies": {
+        "leaflet": "^1.9.4",
+        "leaflet-routing-machine": "^3.2.12"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=9.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/shoresquad.git"
+    },
+    "bugs": {
+        "url": "https://github.com/yourusername/shoresquad/issues"
+    }
 }
