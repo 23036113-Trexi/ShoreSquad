@@ -41,6 +41,7 @@ class ShoreSquadApp {
         const geolocateBtn = document.getElementById('geolocateBtn');
         const locationSearch = document.getElementById('locationSearch');
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const forecastToggle = document.getElementById('forecastToggle');
 
         if (startBtn) startBtn.addEventListener('click', () => this.scrollToSection('map'));
         if (learnMoreBtn) learnMoreBtn.addEventListener('click', () => this.scrollToSection('about'));
@@ -54,6 +55,9 @@ class ShoreSquadApp {
         }
         if (mobileMenuToggle) {
             mobileMenuToggle.addEventListener('click', () => this.toggleMobileMenu());
+        }
+        if (forecastToggle) {
+            forecastToggle.addEventListener('click', () => this.displayWeather());
         }
 
         // Navigation link smooth scroll
@@ -186,22 +190,28 @@ class ShoreSquadApp {
     }
 
     /**
-     * Display weather data
+     * Display weather data with 4-day forecast from NEA
      */
     async displayWeather() {
         const weatherContainer = document.getElementById('weatherContainer');
 
         try {
-            // Using Open-Meteo API (free, accurate, no API key needed)
+            // Fetch 4-day forecast from NEA API
+            // Using Pasir Ris Beach location as default
             const response = await fetch(
-                'https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&temperature_unit=celsius&timezone=auto'
+                'https://api.data.gov.sg/v1/environment/4-day-weather-forecast'
             );
             const data = await response.json();
 
-            this.renderWeatherCard(data.current, weatherContainer);
+            if (data.items && data.items.length > 0) {
+                this.renderForecastCards(data.items[0].forecast, weatherContainer);
+            } else {
+                this.renderWeatherPlaceholder(weatherContainer);
+            }
         } catch (error) {
             console.error('Weather fetch error:', error);
-            this.renderWeatherPlaceholder(weatherContainer);
+            // Fallback to open-meteo if NEA API fails
+            this.fetchOpenMeteoFallback(weatherContainer, 1.381497, 103.955574);
         }
     }
 
@@ -212,20 +222,150 @@ class ShoreSquadApp {
         const weatherContainer = document.getElementById('weatherContainer');
 
         try {
+            // Try NEA API first
             const response = await fetch(
-                `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&temperature_unit=celsius&timezone=auto`
+                'https://api.data.gov.sg/v1/environment/4-day-weather-forecast'
             );
             const data = await response.json();
 
-            this.renderWeatherCard(data.current, weatherContainer, location.name);
+            if (data.items && data.items.length > 0) {
+                this.renderForecastCards(data.items[0].forecast, weatherContainer, location.name);
+            } else {
+                this.renderWeatherPlaceholder(weatherContainer);
+            }
         } catch (error) {
             console.error('Weather fetch error:', error);
-            this.renderWeatherPlaceholder(weatherContainer);
+            // Fallback to open-meteo
+            this.fetchOpenMeteoFallback(weatherContainer, location.latitude, location.longitude, location.name);
         }
     }
 
     /**
-     * Render weather card
+     * Fallback to Open-Meteo API if NEA is unavailable
+     */
+    async fetchOpenMeteoFallback(container, lat, lon, locationName = 'Your Location') {
+        try {
+            const response = await fetch(
+                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&temperature_unit=celsius&timezone=auto`
+            );
+            const data = await response.json();
+
+            if (data.daily) {
+                const forecast = data.daily.time.slice(0, 4).map((date, index) => ({
+                    date: date,
+                    weather: this.getWeatherDescription(data.daily.weather_code[index]),
+                    high: Math.round(data.daily.temperature_2m_max[index]),
+                    low: Math.round(data.daily.temperature_2m_min[index]),
+                    wind: Math.round(data.daily.wind_speed_10m_max[index])
+                }));
+                this.renderForecastCards(forecast, container, locationName);
+            } else {
+                this.renderWeatherPlaceholder(container);
+            }
+        } catch (error) {
+            console.error('Fallback weather fetch error:', error);
+            this.renderWeatherPlaceholder(container);
+        }
+    }
+
+    /**
+     * Render 4-day forecast cards
+     */
+    renderForecastCards(forecast, container, locationName = 'Singapore') {
+        let html = `<div class="forecast-grid">`;
+        
+        forecast.slice(0, 4).forEach((day, index) => {
+            const date = new Date(day.date);
+            const dayName = date.toLocaleDateString('en-SG', { weekday: 'short' });
+            const dateStr = date.toLocaleDateString('en-SG', { month: 'short', day: 'numeric' });
+            const weather = day.weather || this.getWeatherDescription(day.weather_code || 0);
+            const icon = this.getWeatherIconForForecast(day.weather_code || 0);
+            const high = day.high || day.max_temp || 30;
+            const low = day.low || day.min_temp || 24;
+            const wind = day.wind || day.wind_speed || 5;
+
+            html += `
+                <div class="forecast-card">
+                    <div class="forecast-date">
+                        <span class="day-name">${dayName}</span>
+                        <span class="date">${dateStr}</span>
+                    </div>
+                    <div class="forecast-icon">${icon}</div>
+                    <p class="forecast-weather">${weather}</p>
+                    <div class="forecast-temps">
+                        <span class="temp-high">${high}°</span>
+                        <span class="temp-divider">/</span>
+                        <span class="temp-low">${low}°</span>
+                    </div>
+                    <div class="forecast-wind">
+                        💨 ${wind} km/h
+                    </div>
+                    <div class="forecast-recommendation">
+                        ${this.getCleanupRecommendation(high, low, weather)}
+                    </div>
+                </div>
+            `;
+        });
+
+        html += `</div>`;
+        container.innerHTML = html;
+    }
+
+    /**
+     * Get weather description from code
+     */
+    getWeatherDescription(code) {
+        const descriptions = {
+            0: 'Clear',
+            1: 'Mainly Clear',
+            2: 'Partly Cloudy',
+            3: 'Overcast',
+            45: 'Foggy',
+            51: 'Light Drizzle',
+            61: 'Moderate Rain',
+            71: 'Light Snow',
+            80: 'Rainy Showers',
+            95: 'Thunderstorm'
+        };
+        return descriptions[code] || 'Unknown';
+    }
+
+    /**
+     * Get weather icon based on code
+     */
+    getWeatherIconForForecast(code) {
+        const weatherIcons = {
+            0: '☀️',
+            1: '🌤️',
+            2: '⛅',
+            3: '☁️',
+            45: '🌫️',
+            51: '🌧️',
+            61: '🌧️',
+            71: '❄️',
+            80: '⛈️',
+            95: '⛈️'
+        };
+        return weatherIcons[code] || '⛅';
+    }
+
+    /**
+     * Get cleanup recommendation based on weather
+     */
+    getCleanupRecommendation(high, low, weather) {
+        if (weather.includes('Thunderstorm') || weather.includes('Heavy')) {
+            return '❌ Poor Conditions';
+        } else if (weather.includes('Rainy') || weather.includes('Rain')) {
+            return '⚠️ Challenging';
+        } else if (weather.includes('Clear') || weather.includes('Sunny')) {
+            return '✅ Excellent';
+        } else {
+            return '✔️ Good';
+        }
+    }
+
+    /**
+     * Render current weather card (legacy)
      */
     renderWeatherCard(weatherData, container, locationName = 'Your Location') {
         const weatherIcon = this.getWeatherIcon(weatherData.weather_code);
