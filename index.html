@@ -74,10 +74,23 @@
             </div>
             <div class="map-container" id="mapContainer" role="application"
                 aria-label="Interactive map showing nearby beach cleanups">
-                <div class="map-placeholder">
-                    <span class="icon">📍</span>
-                    <p>Map will load here</p>
-                    <p class="text-muted">Enable location or search by city</p>
+                <iframe 
+                    class="google-map-iframe"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7885521045036!2d103.94995151532392!3d1.3814971989435597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da1a3a3a3a3a3b%3A0x123456789!2sPasir%20Ris%20Beach!5e0!3m2!1sen!2ssg!4v1701590400000"
+                    width="100%"
+                    height="100%"
+                    style="border:0; border-radius: 8px;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Next Cleanup Location - Pasir Ris Beach">
+                </iframe>
+                <div class="map-overlay" id="mapOverlay">
+                    <div class="cleanup-marker">
+                        <span class="marker-icon">📍</span>
+                        <p class="marker-text">Next Cleanup: Pasir Ris</p>
+                        <p class="marker-coords">1.381497°N, 103.955574°E</p>
+                    </div>
                 </div>
             </div>
             <div class="search-bar">

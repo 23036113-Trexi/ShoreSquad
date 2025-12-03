@@ -8,6 +8,15 @@ class ShoreSquadApp {
         this.userLocation = null;
         this.events = [];
         this.crew = null;
+        // Next cleanup location
+        this.nextCleanup = {
+            name: 'Pasir Ris Beach',
+            latitude: 1.381497,
+            longitude: 103.955574,
+            location: 'Street View Asia',
+            date: 'TBD',
+            time: 'TBD'
+        };
         this.init();
     }
 
@@ -74,6 +83,19 @@ class ShoreSquadApp {
         this.updateStats();
         this.generateMockEvents();
         this.displayWeather();
+        this.displayNextCleanup();
+    }
+
+    /**
+     * Display next cleanup location information
+     */
+    displayNextCleanup() {
+        const mapOverlay = document.getElementById('mapOverlay');
+        if (mapOverlay) {
+            // Overlay already contains the marker from HTML
+            // This method could be used to update it dynamically
+            console.log(`Next Cleanup: ${this.nextCleanup.name} at ${this.nextCleanup.latitude}, ${this.nextCleanup.longitude}`);
+        }
     }
 
     /**
